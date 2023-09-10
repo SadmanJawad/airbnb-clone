@@ -1,8 +1,89 @@
-import { Link } from "react-router-dom";
-
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 import { FcGoogle } from "react-icons/fc";
+import { useContext, useRef } from "react";
+import { AuthContext } from "../../providers/AuthProvider";
+import { TbFidgetSpinner } from "react-icons/tb";
 
 const SignUp = () => {
+  const {
+    loading,
+    setLoading,
+    signInWithGoogle,
+    createUser,
+    updateUserProfile,
+  } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
+
+  // Handle User Registration
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const name = event.target.name.value;
+    const email = event.target.email.value;
+    const password = event.target.password.value;
+
+    // Image Upload
+    const image = event.target.image.files[0];
+    const formData = new FormData();
+    formData.append("image", image);
+
+    const url = `https://api.imgbb.com/1/upload?key=${
+      import.meta.env.VITE_IMGBB_KEY
+    }`;
+    fetch(url, {
+      method: "POST",
+      body: formData,
+    })
+      .then((res) => res.json())
+      .then((imageData) => {
+        const imageUrl = imageData.data.display_url;
+        // console.log(imageData.data.display_url);
+        createUser(email, password)
+          .then((result) => {
+            // console.log(result.user);
+            updateUserProfile(name, imageUrl)
+              .then(() => {
+                toast.success("Signup successfull");
+                navigate(from, { replace: true });
+              })
+              .catch((err) => {
+                console.log(err.message);
+                toast.error(err.message);
+                setLoading(false);
+              });
+          })
+          .catch((err) => {
+            console.log(err.message);
+            toast.error(err.message);
+            setLoading(false);
+          });
+      })
+      .catch((err) => {
+        console.log(err.message);
+        toast.error(err.message);
+        setLoading(false);
+      });
+
+    // console.log(url);
+    return;
+  };
+
+  // Handle Google SignIn
+  const handleGoogleSignIn = () => {
+    signInWithGoogle()
+      .then((result) => {
+        console.log(result.user);
+        navigate(from, { replace: true });
+      })
+      .catch((err) => {
+        console.log(err.message);
+        toast.error(err.message);
+        setLoading(false);
+      });
+  };
+
   return (
     <div className="flex justify-center items-center min-h-screen">
       <div className="flex flex-col max-w-md p-6 rounded-md sm:p-10 bg-gray-100 text-gray-900">
@@ -11,6 +92,7 @@ const SignUp = () => {
           <p className="text-sm text-gray-400">Welcome to AirCNC</p>
         </div>
         <form
+          onSubmit={handleSubmit}
           noValidate=""
           action=""
           className="space-y-6 ng-untouched ng-pristine ng-valid"
@@ -77,7 +159,11 @@ const SignUp = () => {
               type="submit"
               className="bg-rose-500 w-full rounded-md py-3 text-white"
             >
-              Continue
+              {loading ? (
+                <TbFidgetSpinner className="m-auto animate-spin" size={24} />
+              ) : (
+                "Continue"
+              )}
             </button>
           </div>
         </form>
@@ -88,7 +174,10 @@ const SignUp = () => {
           </p>
           <div className="flex-1 h-px sm:w-16 dark:bg-gray-700"></div>
         </div>
-        <div className="flex justify-center items-center space-x-2 border m-3 p-2 border-gray-300 border-rounded cursor-pointer">
+        <div
+          onClick={handleGoogleSignIn}
+          className="flex justify-center items-center space-x-2 border m-3 p-2 border-gray-300 border-rounded cursor-pointer"
+        >
           <FcGoogle size={32} />
 
           <p>Continue with Google</p>

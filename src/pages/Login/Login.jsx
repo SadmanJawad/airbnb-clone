@@ -21,7 +21,7 @@ const Login = () => {
     signIn(email, password)
       .then((result) => {
         console.log(result.user);
-        navigate(form, { replace: true });
+        navigate(from, { replace: true });
       })
       .catch((err) => {
         console.log(err.message);
@@ -36,7 +36,7 @@ const Login = () => {
     signInWithGoogle()
       .then((result) => {
         console.log(result.user);
-        navigate(form, { replace: true });
+        navigate(from, { replace: true });
       })
       .catch((err) => {
         console.log(err.message);
@@ -45,15 +45,14 @@ const Login = () => {
       });
   };
 
-  //   handle password reset
-
+  // Handle Reset Password
   const handleResetPassword = () => {
     const email = emailRef.current.value;
     // return console.log(email);
     resetPassword(email)
       .then(() => {
         setLoading(false);
-        toast.success("Please check your email for reset link");
+        toast.success("Please check your email for reset ");
       })
       .catch((err) => {
         console.log(err.message);
