@@ -8,7 +8,7 @@ import Heading from "../Heading/Heading";
 const Rooms = () => {
   const [params, setParams] = useSearchParams();
   const category = params.get("category");
-  console.log(category);
+  // console.log(category);
 
   const [rooms, setRooms] = useState([]);
   const [loading, setLoading] = useState(false);

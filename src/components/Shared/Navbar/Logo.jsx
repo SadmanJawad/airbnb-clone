@@ -6,7 +6,7 @@ const Logo = () => {
       <img
         className=" hidden md:block"
         src={logoImg}
-        alt=""
+        alt="logo"
         width="100"
         height="100"
       />
