@@ -48,7 +48,7 @@ const SignUp = () => {
             // console.log(result.user);
             updateUserProfile(name, imageUrl)
               .then(() => {
-                toast.success("Signup successfull");
+                toast.success("Signup successful");
                 // save user to DB
                 saveUser(result.user);
 
