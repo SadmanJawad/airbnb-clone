@@ -10,17 +10,19 @@ const RoomReservation = () => {
         <div className="font-light text-neutral-600">Night</div>
       </div>
       <hr />
-      <div>
+      <div className="flex justify-center">
+        {" "}
         <Calender />
-        <hr />
-        <div className="p-4">
-          <Button label="Reserve" />
-        </div>
-        <hr />
-        <div className="p-4 flex flex-row items-center justify-between font-semibold text-lg">
-          <div>Total</div>
-          <div>$ 300</div>
-        </div>
+      </div>
+
+      <hr />
+      <div className="p-4">
+        <Button label="Reserve" />
+      </div>
+      <hr />
+      <div className="p-4 flex flex-row items-center justify-between font-semibold text-lg">
+        <div>Total</div>
+        <div>$ 300</div>
       </div>
     </div>
   );
