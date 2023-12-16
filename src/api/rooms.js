@@ -21,3 +21,11 @@ export const getAllRooms = async () => {
     const data = await response.json()
     return data
 }
+
+
+// Get single by category
+export const getRoom = async id => {
+    const response = await fetch(`${import.meta.env.VITE_API_URL}/room/${id}`)
+    const data = await response.json()
+    return data
+}

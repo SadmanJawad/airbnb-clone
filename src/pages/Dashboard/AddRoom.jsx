@@ -24,7 +24,7 @@ const AddRoom = () => {
     const category = event.target.category.value;
     const description = event.target.description.value;
     const price = event.target.price.value;
-    const total_guest = event.target.total_guest.value;
+    const guests = event.target.total_guest.value;
     const bedrooms = event.target.bedrooms.value;
     const bathrooms = event.target.bathrooms.value;
     const image = event.target.image.files[0];
@@ -39,9 +39,11 @@ const AddRoom = () => {
           from,
           to,
           price: parseFloat(price),
-          total_guest,
+          guests,
           bedrooms,
+          bathrooms,
           category,
+          description,
           image: data.data.display_url,
           host: {
             name: user?.displayName,
