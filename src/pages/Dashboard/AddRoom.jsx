@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import AddRoomForm from "../../components/Forms/AddRoomForm";
 import { imageUpload } from "../../api/utils";
 import { AuthContext } from "../../providers/AuthProvider";
+import { addRoom } from "../../api/rooms";
 
 const AddRoom = () => {
   const { user } = useContext(AuthContext);
@@ -48,6 +49,12 @@ const AddRoom = () => {
             email: user?.email,
           },
         };
+
+        // post room data to server
+        addRoom(roomData)
+          .then((data) => console.log(data))
+          .catch((err) => console.log(err));
+
         console.log(roomData);
         // console.log(data.data.display_url);
         setLoading(false);
