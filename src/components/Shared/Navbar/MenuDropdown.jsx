@@ -15,7 +15,7 @@ const MenuDropdown = () => {
       <div className="flex flex-row items-center gap-3">
         {/* AirCNC btn */}
         <div className="hidden md:block text-sm font-semibold py-3 px-4 rounded-full hover:bg-neutral-100 transition cursor-pointer">
-          AirCNC your home
+          HomeAWAY your house
         </div>
         {/* Dropdown btn */}
         <div

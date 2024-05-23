@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
-import logoImg from "../../../assets/images/logo.png";
+import logoImg from "../../../assets/images/logo2.1.png";
 const Logo = () => {
   return (
     <Link to="/">
       <img
-        className=" hidden md:block"
+        className="hidden md:block"
         src={logoImg}
         alt="logo"
         width="100"
