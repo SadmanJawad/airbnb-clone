@@ -91,10 +91,10 @@ const Sidebar = () => {
                     type="checkbox"
                     className="hidden peer"
                   />
-                  <span className="px-4 py-1 rounded-l-md bg-[#ff3131] peer-checked:bg-gray-300">
+                  <span className="px-4 py-1 rounded-l-md bg-rose-400 peer-checked:bg-gray-300 text-white">
                     Guest
                   </span>
-                  <span className="px-4 py-1 rounded-r-md bg-gray-300 peer-checked:bg-rose-300">
+                  <span className="px-4 py-1 rounded-r-md bg-gray-300 peer-checked:bg-rose-400 text-white">
                     Host
                   </span>
                 </label>
