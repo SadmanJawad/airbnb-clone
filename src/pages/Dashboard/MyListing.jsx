@@ -1,4 +1,17 @@
+import { useContext, useEffect, useState } from "react";
+import { AuthContext } from "../../providers/AuthProvider";
+import { getRooms } from "../../api/rooms";
+import RoomDataRow from "./RoomDataRow";
+
 const MyListings = () => {
+  const { user } = useContext(AuthContext);
+  const [rooms, setRooms] = useState([]);
+  const fetchRooms = () => getRooms(user?.email).then((data) => setRooms(data));
+
+  useEffect(() => {
+    fetchRooms();
+  }, [user]);
+
   return (
     <div className="container mx-auto px-4 sm:px-8">
       <div className="py-8">
@@ -51,7 +64,16 @@ const MyListings = () => {
                   </th>
                 </tr>
               </thead>
-              <tbody>{/* Table Data */}</tbody>
+              <tbody>
+                {rooms &&
+                  rooms.map((room) => (
+                    <RoomDataRow
+                      key={room?.id}
+                      room={room}
+                      fetchRooms={fetchRooms}
+                    />
+                  ))}
+              </tbody>
             </table>
           </div>
         </div>

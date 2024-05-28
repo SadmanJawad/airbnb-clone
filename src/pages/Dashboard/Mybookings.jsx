@@ -4,10 +4,9 @@ import { getBookings } from "../../api/bookings";
 import TableRow from "../../components/Dashboard/TableRow";
 
 const MyBookings = () => {
-  const [bookings, setBookings] = useState([]);
-
   const { user } = useContext(AuthContext);
 
+  const [bookings, setBookings] = useState([]);
   const fetchBookings = () => {
     getBookings(user?.email).then((data) => {
       setBookings(data);
