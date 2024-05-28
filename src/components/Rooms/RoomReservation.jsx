@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import Calender from "./Calender";
 import Button from "../Button/Button";
+import { AuthContext } from "../../providers/AuthProvider";
 
 const RoomReservation = () => {
+  const { user, role } = useContext(AuthContext);
+
   return (
     <div className="bg-white rounded-xl border-[1px] border-neutral-200 overflow-hidden">
       <div className="flex flex-row items-center gap-1 p-4">

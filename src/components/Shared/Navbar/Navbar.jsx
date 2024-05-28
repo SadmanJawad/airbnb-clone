@@ -2,7 +2,7 @@ import React from "react";
 import Container from "../Container";
 import Logo from "./Logo";
 import Search from "./Search";
-import MenuDropdown from "./MenuDropDown";
+import MenuDropdown from "./MenuDropdown";
 
 const Navbar = () => {
   return (
