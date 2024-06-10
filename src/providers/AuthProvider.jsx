@@ -71,7 +71,12 @@ const AuthProvider = ({ children }) => {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({ email: currentUser.email }),
-        });
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            console.log(data);
+            localStorage.setItem("access-token", data.token);
+          });
       }
       console.log("current user", currentUser);
       setLoading(false);
