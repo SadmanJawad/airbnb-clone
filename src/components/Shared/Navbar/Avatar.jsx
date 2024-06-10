@@ -12,6 +12,7 @@ const Avatar = () => {
       height="30"
       width="30"
       className="rounded-full"
+      referrerPolicy="no-referrer"
     />
   );
 };
