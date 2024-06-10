@@ -34,6 +34,13 @@ export const getBookings = async email => {
     const bookings = await response.json()
     return bookings
 }
+// Get host bookings for a user by email
+export const getHostBookings = async email => {
+    const response = await fetch(`${import.meta.env.VITE_API_URL}/bookings/host?email=${email}`)
+
+    const bookings = await response.json()
+    return bookings
+}
 
 // delete a booking
 export const deleteBooking = async id => {
