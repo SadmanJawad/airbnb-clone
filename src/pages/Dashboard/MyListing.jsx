@@ -4,25 +4,33 @@ import { AuthContext } from "../../providers/AuthProvider";
 import RoomDataRow from "./RoomDataRow";
 import EmptyState from "../../components/Shared/EmptyState";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
+import { useQuery } from "@tanstack/react-query";
 
 const MyListings = () => {
-  const { user } = useContext(AuthContext);
+  const { user, loading } = useContext(AuthContext);
   const [axiosSecure] = useAxiosSecure();
-  const [rooms, setRooms] = useState([]);
+  // const [rooms, setRooms] = useState([]);
 
-  // get request using axios
-  // using default hooks ---> axios.get("http://localhost:5000/rooms");
-  // using custom hooks ---> axiosSecure.get("/rooms");
+  // const fetchRooms = () =>
+  //   axiosSecure
+  //     .get(`/rooms/${user.email}`)
+  //     .then((data) => setRooms(data.data))
+  //     .catch((error) => console.log(error));
 
-  const fetchRooms = () =>
-    axiosSecure
-      .get(`/rooms/${user.email}`)
-      .then((data) => setRooms(data.data))
-      .catch((error) => console.log(error));
+  // useEffect(() => {
+  //   fetchRooms();
+  // }, [user]);
 
-  useEffect(() => {
-    fetchRooms();
-  }, [user]);
+  //! Tanstack query
+  const { data: rooms = [], refetch } = useQuery({
+    queryKey: ["rooms", user?.email],
+    enabled: !loading,
+    queryFn: async () => {
+      const res = await axiosSecure.get(`/rooms/${user.email}`);
+      console.log("res from axios", res.data);
+      return res.data;
+    },
+  });
 
   return (
     <>
@@ -84,7 +92,7 @@ const MyListings = () => {
                         <RoomDataRow
                           key={room?.id}
                           room={room}
-                          fetchRooms={fetchRooms}
+                          refetch={refetch}
                         />
                       ))}
                   </tbody>
