@@ -3,11 +3,22 @@ import { AuthContext } from "../../providers/AuthProvider";
 import { getRooms } from "../../api/rooms";
 import RoomDataRow from "./RoomDataRow";
 import EmptyState from "../../components/Shared/EmptyState";
+import { useAxiosSecure } from "../../hooks/useAxiosSecure";
 
 const MyListings = () => {
   const { user } = useContext(AuthContext);
+  const [axiosSecure] = useAxiosSecure();
   const [rooms, setRooms] = useState([]);
-  const fetchRooms = () => getRooms(user?.email).then((data) => setRooms(data));
+
+  // get request using axios
+  // using default hooks ---> axios.get("http://localhost:5000/rooms");
+  // using custom hooks ---> axiosSecure.get("/rooms");
+
+  const fetchRooms = () =>
+    axiosSecure
+      .get(`/rooms/${user.email}`)
+      .then((data) => setRooms(data))
+      .catch((error) => console.log(error));
 
   useEffect(() => {
     fetchRooms();
